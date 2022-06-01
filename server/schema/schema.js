@@ -10,11 +10,16 @@ var usersData = [
 ];
 
 var hobbiesData = [
-  { id: '1', title: 'Programming', description: 'Java, React, NodeJS' },
-  { id: '2', title: 'Running', description: ' ' },
-  { id: '3', title: 'Reading', description: ' ' },
-  { id: '4', title: 'Painting', description: ' ' },
-  { id: '5', title: 'Gaming', description: ' ' },
+  {
+    id: '1',
+    title: 'Programming',
+    description: 'Java, React, NodeJS',
+    userId: '1',
+  },
+  { id: '2', title: 'Running', description: ' ', userId: '1' },
+  { id: '3', title: 'Reading', description: ' ', userId: '1' },
+  { id: '4', title: 'Painting', description: ' ', userId: '1' },
+  { id: '5', title: 'Gaming', description: ' ', userId: '1' },
 ];
 
 var postData = [
@@ -31,6 +36,7 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLSchema,
+  GraphQLList,
 } = graphql;
 
 const UserType = new GraphQLObjectType({
@@ -42,6 +48,20 @@ const UserType = new GraphQLObjectType({
     age: { type: GraphQLInt },
     city: { type: GraphQLString },
     profession: { type: GraphQLString },
+
+    posts: {
+      type: new GraphQLList(PostType),
+      resolve(parent, args) {
+        return _.filter(postData, { userId: parent.id });
+      },
+    },
+
+    hobbies: {
+      type: new GraphQLList(HobbyType),
+      resolve(parent, args) {
+        return _.filter(hobbiesData, { userId: parent.id });
+      },
+    },
   }),
 });
 
@@ -52,6 +72,12 @@ const HobbyType = new GraphQLObjectType({
     id: { type: GraphQLID },
     title: { type: GraphQLString },
     description: { type: GraphQLString },
+    user: {
+      type: UserType,
+      resolve(parent, args) {
+        return _.find(usersData, { id: parent.userId });
+      },
+    },
   }),
 });
 
@@ -61,6 +87,12 @@ const PostType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     comment: { type: GraphQLString },
+    user: {
+      type: UserType,
+      resolve(parent, args) {
+        return _.find(usersData, { id: parent.userId });
+      },
+    },
   }),
 });
 
@@ -97,6 +129,68 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    createUser: {
+      type: UserType,
+      args: {
+        // id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        city: { type: GraphQLString },
+        profession: { type: GraphQLString },
+      },
+
+      resolve(parent, args) {
+        let user = {
+          name: args.name,
+          age: args.age,
+          city: args.city,
+          profession: args.profession,
+        };
+        return user;
+      },
+    },
+
+    createPost: {
+      type: PostType,
+      args: {
+        // id: { type: GraphQLID },
+        comment: { type: GraphQLString },
+        userId: { type: GraphQLID },
+      },
+
+      resolve(parent, args) {
+        let post = {
+          comment: args.parent,
+          userId: args.userId,
+        };
+        return post;
+      },
+    },
+
+    createHobby: {
+      type: HobbyType,
+      args: {
+        userId: { type: GraphQLID },
+        title: { type: GraphQLString },
+        description: { type: GraphQLString },
+      },
+
+      resolve(parent, args) {
+        let hobby = {
+          title: args.title,
+          description: args.description,
+          userId: args.userId,
+        };
+        return hobby;
+      },
+    },
+  },
+});
+
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation: Mutation,
 });
