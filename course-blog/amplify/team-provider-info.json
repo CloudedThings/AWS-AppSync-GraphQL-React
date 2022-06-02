@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-courseblog-dev-95154-authRole",
+      "UnauthRoleArn": "arn:aws:iam::680823411721:role/amplify-courseblog-dev-95154-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::680823411721:role/amplify-courseblog-dev-95154-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-courseblog-dev-95154-deployment",
+      "UnauthRoleName": "amplify-courseblog-dev-95154-unauthRole",
+      "StackName": "amplify-courseblog-dev-95154",
+      "StackId": "arn:aws:cloudformation:eu-west-1:680823411721:stack/amplify-courseblog-dev-95154/e0c0b0d0-e248-11ec-8f20-0a31e1a49673",
+      "AmplifyAppId": "d4g1l4em3f2pv"
+    }
+  }
+}
