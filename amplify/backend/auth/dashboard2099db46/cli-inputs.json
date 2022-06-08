@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "courseblog8649d751_identitypool_8649d751",
+    "identityPoolName": "dashboard2099db46_identitypool_2099db46",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "course8649d751",
-    "userPoolName": "courseblog8649d751_userpool_8649d751",
+    "resourceNameTruncated": "dashbo2099db46",
+    "userPoolName": "dashboard2099db46_userpool_2099db46",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "course8649d751_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "dashbo2099db46_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "8649d751",
-    "resourceName": "courseblog8649d751",
+    "sharedId": "2099db46",
+    "resourceName": "dashboard2099db46",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "userPoolGroupList": [],

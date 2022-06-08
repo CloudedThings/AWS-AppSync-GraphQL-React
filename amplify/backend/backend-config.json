@@ -1,24 +1,41 @@
 {
   "api": {
-    "courseblog": {
+    "dashboard": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "dashboard2099db46",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
       "output": {
         "authConfig": {
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDays": 7,
+              "apiKeyExpirationDate": "2022-06-15T06:44:47.390Z",
+              "description": "public api key"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authdashboard2099db46"
+              }
+            }
+          ]
         }
       }
     }
   },
   "auth": {
-    "courseblog8649d751": {
+    "dashboard2099db46": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
